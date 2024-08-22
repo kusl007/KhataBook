@@ -41,15 +41,17 @@ app.post("/createhisaab",function(req,res){
     });
 
 })
+
 app.get(`/edit/:filename`,(req,res)=>{
-    fs.readFile(`./files/${req.params.filename}`,"utf-8",function(err,data){
-        if (err){ return res.send(err)}
-        
-        res.render('edit',{data,filename:req.params.filename})
+    
+    fs.readFile(`./hisaab/${req.params.filename}`,"utf-8",function(err,filedata){
+        if (err){ return res.send("error occured in reading file")}        
+        res.render('edit',{filedata,filename:req.params.filename})
     })
 })
+
 app.post(`/update/:filename`,(req,res)=>{
-    fs.writeFile(`./files/${req.params.filename}`,req.body.filedata, function(err){
+    fs.writeFile(`./hisaab/${req.params.filename}`,req.body.content, function(err){
         if (err){ return res.send(err)}
         
         res.redirect('/')
