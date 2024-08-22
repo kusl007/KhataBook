@@ -6,10 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <% files.forEach(function(file){%>
-            <h3><%= file%></h3>
-            <a href="/edit/<%=file %>">edit</a>
-     <% })%>
-    
+    <form action="/update/<%=filename%>" method="post">
+        <textarea name="filedata" id=""><%=data%></textarea>
+        <input type="submit" >
+    </form>
 </body>
 </html>
