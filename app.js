@@ -1,17 +1,21 @@
 const express = require("express");
 const app = express();
+
 const path = require("path");
 const fs = require("fs");
 
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public"))); 
 
 app.get("/", (req, res) => {
- fs.readdir(`./files`,function(err,files){
-    // console.log(files)
-    res.render("index",{files})
+ fs.readdir(`./hisaab`,function(err,files){
+    if(err){
+       return res.status(500).send(err)
+    }
+       res.render("index",{files})
+    
  })
 });
 
@@ -27,7 +31,7 @@ app.get("/create", (req, res) => {
     if (error) {
       res.send("something went wrong ");
     } else {
-      res.send("done");
+      res.render("create");
     }
   });
 });
