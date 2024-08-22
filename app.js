@@ -64,7 +64,7 @@ fs.readFile(`./hisaab/${req.params.filename}`, "utf-8",function(err,filedata){
 })
 })
 app.get(`/delete/:filename`,(req,res)=>{
-    fs.unlink(`./files/${req.params.filename}`, function(err){
+    fs.unlink(`./hisaab/${req.params.filename}`, function(err){
         if (err){ return res.send(err)}
         
         res.redirect('/')
