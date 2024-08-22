@@ -20,21 +20,27 @@ app.get("/", (req, res) => {
 });
 
 app.get("/create", (req, res) => {
-  const now = new Date();
-
-  const day = String(now.getDate()).padStart(2, "0");
-  const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
-  const year = now.getFullYear();
-  const fn = `${day}-${month}-${year}.txt`;
-
-  fs.writeFile(`./files/${fn}`, "apple", function (error) {
-    if (error) {
-      res.send("something went wrong ");
-    } else {
-      res.render("create");
-    }
-  });
+    res.render("create");
+ 
 });
+
+app.post("/createhisaab",function(req,res){
+    const now = new Date();
+
+    const day = String(now.getDate()).padStart(2, "0");
+    const month = String(now.getMonth() + 1).padStart(2, "0"); // Months are zero-based
+    const year = now.getFullYear();
+    const fn = `${day}-${month}-${year}.txt`;
+  
+    fs.writeFile(`./hisaab/${fn}`, req.body.content, function (error) {
+      if (error) {
+        res.status(500).send("something went wrong in creating the file ");
+      } 
+        res.redirect("/")
+      
+    });
+
+})
 app.get(`/edit/:filename`,(req,res)=>{
     fs.readFile(`./files/${req.params.filename}`,"utf-8",function(err,data){
         if (err){ return res.send(err)}
