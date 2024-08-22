@@ -57,6 +57,12 @@ app.post(`/update/:filename`,(req,res)=>{
         res.redirect('/')
     })
 })
+app.get("/hisaab/:filename",(req,res)=>{
+fs.readFile(`./hisaab/${req.params.filename}`, "utf-8",function(err,filedata){
+    if(err){res.status(500).send(err)}
+    res.render("hisaab",{filedata,filename:req.params.filename})
+})
+})
 app.get(`/delete/:filename`,(req,res)=>{
     fs.unlink(`./files/${req.params.filename}`, function(err){
         if (err){ return res.send(err)}
